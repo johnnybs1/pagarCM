@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
       const response = await fetch('https://api.pushpay.com/v1/transactions', {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer {31271|Zow0Z2JssrIndWEn9UxK5MPBmIn7uuRClpKUAT7Mf70dcbd5}', // Substitua com o token de API da PushPay
+          'Authorization': '31271|Zow0Z2JssrIndWEn9UxK5MPBmIn7uuRClpKUAT7Mf70dcbd5', // Substitua com o token de API da PushPay
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
