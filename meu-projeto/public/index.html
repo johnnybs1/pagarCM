@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagamento Via Pix</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
+    .container {
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      background-color: #28a745; /* Verde */
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .small-text {
+      font-size: 12px;
+      color: #666;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Realizar Pagamento</h1>
+    <input type="number" id="amount" placeholder="Valor (R$)" min="10" value="10">
+    <button onclick="realizarPagamento()">Pagar Via Pix</button>
+    <p class="small-text">O valor mínimo é R$10,00, mas você pode escolher um valor acima.</p>
+  </div>
+
+  <script>
+    function realizarPagamento() {
+      const amount = document.getElementById('amount').value;
+
+      // Verificar se o valor é menor que o valor mínimo permitido
+      if (!amount || amount < 10) {
+        alert("O valor mínimo é R$10,00.");
+        return;
+      }
+
+      // Aqui você faz a requisição para o back-end
+      fetch('https://seu-backend-api.com/pushpay/transaction', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          amount: amount,
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert('Pagamento realizado com sucesso!');
+        } else {
+          alert('Erro ao realizar pagamento');
+        }
+      })
+      .catch(error => {
+        console.error('Erro:', error);
+        alert('Erro no servidor');
+      });
+    }
+  </script>
+</body>
+</html>
